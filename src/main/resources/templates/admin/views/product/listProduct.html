@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<!-- =========================================================
+* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
+==============================================================
+
+* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
+* Created by: ThemeSelection
+* License: You must have a valid license purchased in order to legally use the theme for your project.
+* Copyright ThemeSelection (https://themeselection.com)
+
+=========================================================
+ -->
+<!-- beautify ignore:start -->
+<html
+        lang="en"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+        xmlns:th="http://www.thymeleaf.org"
+>
+<th:block th:replace="admin/layout/head" />
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+  <div class="layout-container">
+    <!-- Menu -->
+
+    <th:block th:replace="admin/layout/menu" />
+    <!-- / Menu -->
+
+    <!-- Layout container -->
+    <div class="layout-page">
+      <!-- Navbar -->
+
+      <th:block th:replace="admin/layout/navbar" />
+
+      <!-- / Navbar -->
+
+      <!-- Content wrapper -->
+      <div class="content-wrapper">
+        <!-- Content -->
+
+        <div class="container-xxl flex-grow-1 container-p-y">
+
+          <h4 class="fw-bold py-2 mb-2"><span class="text-muted fw-light">Products /</span> List of Products</h4>
+
+          <hr class="my-2" />
+          <button type="button" class="btn btn-primary mt-2 mb-4" data-bs-toggle="modal" data-bs-target="#staticModal" id="create" onclick="showCreate()">
+            Create
+          </button>
+          <!--Modal-->
+          <div class="modal fade" id="staticModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+               aria-labelledby="staticModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="max-width: 800px">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticModalLabel">Create Product</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form id="productForm" enctype="multipart/form-data">
+                    <div class="row">
+                      <div id="formBody">
+
+                      </div>
+
+                      <div id="images-container">
+                        <label id="images" for="file">
+                          <img class="image-preview-default" src="https://www.justblackmagic.com/wp-content/uploads/2020/09/cloud-computing-1990405_1280.png" style="height: 150px; width: 150px"/>
+                          <input id="file" class="d-none" type="file" multiple="multiple" onchange="previewImage(event)">
+                        </label>
+                      </div>
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary" id="saveChangesButton">Save changes</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Striped Rows -->
+          <div class="card">
+            <h3 class="card-header text-center" style="color: #7D7FFF">LIST OF PRODUCTS</h3>
+            <div class="table-responsive text-nowrap">
+              <table class="table table-striped">
+                <thead>
+                <tr style="text-align: center">
+                  <th>No.</th>
+                  <th>Product</th>
+                  <th>Category</th>
+                  <th>Material</th>
+                  <th>Price</th>
+                  <th>StockQuantity</th>
+                  <th>Images</th>
+                  <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody class="table-border-bottom-0" id="tBody">
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!--/ Striped Rows -->
+          <div class="d-flex justify-content-end mt-3">
+            <nav aria-label="...">
+              <ul class="pagination" id="pagination">
+
+              </ul>
+            </nav>
+          </div>
+          <hr class="my-5" />
+
+        </div>
+        <!-- / Content -->
+
+        <!-- Footer -->
+        <th:block th:replace="admin/layout/footer" />
+        <!-- / Footer -->
+
+        <div class="content-backdrop fade"></div>
+      </div>
+      <!-- Content wrapper -->
+    </div>
+    <!-- / Layout page -->
+  </div>
+
+  <!-- Overlay -->
+  <div class="layout-overlay layout-menu-toggle"></div>
+</div>
+<!-- / Layout wrapper -->
+
+<!-- Core JS -->
+<th:block th:replace="admin/layout/script" />
+<script src="/assets/admin/myjs/product.js"></script>
+</body>
+</html>
