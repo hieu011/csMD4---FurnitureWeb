@@ -71,3 +71,13 @@
 
 
 })()
+
+// Hàm để mở dropdown
+function showDropDown() {
+	if(dropDownMenu.style.display == 'none'){
+		dropDownMenu.style.display = 'block'
+	}else {
+		dropDownMenu.style.display = 'none'
+	}
+}
+

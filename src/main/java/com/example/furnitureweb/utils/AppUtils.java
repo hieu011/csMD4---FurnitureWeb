@@ -4,11 +4,18 @@ import org.modelmapper.AbstractConverter;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AppUtils {
     public static final ModelMapper mapper;
@@ -59,5 +66,14 @@ public class AppUtils {
         mapper.addConverter(toStringDateTime);
         mapper.addConverter(toTimeDateTime);
         mapper.addConverter(toStringTime);
+    }
+
+    public static ResponseEntity<?> mapErrorToResponse(BindingResult result) {
+        List<FieldError> fieldErrors = result.getFieldErrors();
+        Map<String, String> errors = new HashMap<>();
+        for (FieldError fieldError : fieldErrors) {
+            errors.put(fieldError.getField(), fieldError.getDefaultMessage());
+        }
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 }

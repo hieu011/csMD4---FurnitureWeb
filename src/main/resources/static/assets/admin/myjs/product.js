@@ -1,7 +1,7 @@
 const productForm = document.getElementById('productForm');
 const tBody = document.getElementById("tBody");
 const ePagination = document.getElementById('pagination')
-const eSearch = document.getElementById('search');
+const eSearch = document.querySelector('#search');
 const formBody = document.getElementById('formBody');
 
 let indexOfProducts = 1;
@@ -10,7 +10,7 @@ let imageSrcDefault = "https://www.justblackmagic.com/wp-content/uploads/2020/09
 let productSelected = {};
 let pageable = {
     page: 1,
-    sort: 'id,desc',
+    sort: 'id,asc',
     search: ''
 }
 let products = [];
@@ -86,8 +86,10 @@ function getDataFromForm(form) {
     return Object.fromEntries(data.entries())
 }
 
+
 async function getList() {
-    const response = await fetch(`/api/products?page=${pageable.page - 1 || 0}&search=${pageable.search || ''}`);
+    const sortParam = 'id,asc'
+    const response = await fetch(`/api/products?page=${pageable.page - 1 || 0}&search=${pageable.search || ''}&sort=${sortParam || ''}`);
 
     if (!response.ok) {
         // Xử lý trường hợp không thành công ở đây, ví dụ: throw một lỗi hoặc trả về một giá trị mặc định
@@ -95,10 +97,12 @@ async function getList() {
     }
 
     const result = await response.json();
+    console.log(result)
     pageable = {
         ...pageable,
         ...result
     };
+    console.log(pageable)
     genderPagination();
     renderTBody(result.content);
     return result; // Trả về kết quả mà bạn đã lấy từ response.json()

@@ -728,12 +728,21 @@ textarea {
   background-color: #3B5D50;
 }
 
-#quantity{
+#quantityInModal{
   border: 1px solid #e6e6e6;
   background-color: #f7f7f7;
 }
 
+#updateCartButton:hover, #applyCouponButton:hover, #checkOutButton:hover, #button-addon2:hover, #placeOrderButton:hover, #backToShopButton:hover{
+  background-color: #3B5D50 ;
+}
 
+#searchButton{
+  opacity: 0.7;
+}
+#searchButton:hover{
+  opacity: 1;
+}
 
 
 

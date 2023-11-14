@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import jakarta.persistence.*;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -19,13 +20,19 @@ public class OrderDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+
     private BigDecimal price;
 
-    private String name;
+    private Long quantity;
+
 
     @ManyToOne
     private Product product;
 
     @ManyToOne
     private Order order;
+
+    @ManyToOne
+    private User user;
 }

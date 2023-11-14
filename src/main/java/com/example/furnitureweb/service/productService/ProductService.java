@@ -73,6 +73,19 @@ public class ProductService {
         return result;
     }
 
+    public ProductListResponse findByIdForClient(Long id){
+        var product = productRepository.findById(id).orElse(new Product());
+        var result = AppUtils.mapper.map(product, ProductListResponse.class);
+        result.setCategory(product.getCategory().getName().toString());
+        result.setMaterial(product.getMaterial().getName().toString());
+        List<String> images = product.getProductImages()
+                .stream()
+                .map(ProductImage::getFileUrl)
+                .collect(Collectors.toList());
+        result.setImages(images);
+        return result;
+    }
+
     public void update(ProductSaveRequest request, Long id) {
         var product = productRepository.findById(id).orElse(new Product());
         AppUtils.mapper.map(request, product);
@@ -80,12 +93,13 @@ public class ProductService {
         product.setCategory(category);
         Material material = materialService.findByID(Long.valueOf(request.getMaterialId().getId())).get();
         product.setMaterial(material);
-        product = productRepository.save (product);
+        product = productRepository.save(product);
         var files = fileRepository.findAllById(request.getFiles().stream().map(OptionRequest::getId).collect(Collectors.toList()));
         for ( ProductImage image: product.getProductImages()) {
             for(var file: files){
                 if( image.getId() != file.getId() ){
                     fileRepository.delete(image);
+                    break;
                 } else {
                     break;
                 }

@@ -5,7 +5,7 @@ import com.example.furnitureweb.model.ProductImage;
 import com.example.furnitureweb.model.dto.productImageDTO.ProductImageResponse;
 import com.example.furnitureweb.repository.ProductImageRepository;
 import com.example.furnitureweb.utils.UploadUtils;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

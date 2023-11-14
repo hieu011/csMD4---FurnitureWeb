@@ -1,11 +1,14 @@
 package com.example.furnitureweb.model;
 
+import com.example.furnitureweb.model.Enum.ERole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import jakarta.persistence.*;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -19,12 +22,20 @@ public class User {
     private Long id;
 
     @Column(unique = true)
+    private String username;
+
+    private String password;
+
+    @Column(unique = true)
     private String email;
 
     private String fullName;
 
     @Column(unique = true)
     private String phoneNumber;
+
+    @Enumerated(value = EnumType.STRING)
+    private ERole role;
 
     private String address;
 
@@ -36,4 +47,7 @@ public class User {
 
     @OneToOne
     private Location location;
+
+    @OneToMany
+    private List<OrderDetail> orderDetail;
 }

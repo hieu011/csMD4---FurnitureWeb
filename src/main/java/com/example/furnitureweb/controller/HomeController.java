@@ -13,14 +13,45 @@ public class HomeController {
     private final ProductService productService;
 
     @GetMapping("/home")
-    public String showHomePage() {
+    public String showHomePage(Model model) {
+        model.addAttribute("active","home");
         return "/customer/views/index";
     }
 
     @GetMapping("/shop")
-    public String showShoppingPage() {
+    public String showShoppingPage(Model model) {
+        model.addAttribute("active","shop");
         return "/customer/views/shop";
     }
+
+    @GetMapping("/about")
+    public String showAboutPage(Model model) {
+        model.addAttribute("active","about");
+        return "/customer/views/aboutUs";
+    }
+
+    @GetMapping("/contact")
+    public String showContactPage(Model model) {
+        model.addAttribute("active","contact");
+        return "/customer/views/contactUs";
+    }
+
+
+    @GetMapping("/cart")
+    public String showCartPage() {
+        return "/customer/views/cart";
+    }
+
+    @GetMapping("/checkout")
+    public String showCheckOutPage() {
+        return "/customer/views/checkout";
+    }
+
+    @GetMapping("/thank-you")
+    public String showThankYouPage() {
+        return "/customer/views/thank-you";
+    }
+
 
 
     @GetMapping("/admin")

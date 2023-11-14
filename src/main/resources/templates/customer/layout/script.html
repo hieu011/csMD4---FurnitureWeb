@@ -1,5 +1,17 @@
 <th:block th:fragment="script">
+  <script src="/assets/admin/assets/vendor/libs/jquery/jquery.js"></script>
   <script src="/assets/client/js/bootstrap.bundle.min.js"></script>
   <script src="/assets/client/js/tiny-slider.js"></script>
   <script src="/assets/client/js/custom.js"></script>
+  <script src="/assets/web-toast/src/webToast.js"></script>
+  <script th:inline="javascript">
+    let dataFromBackend = /*[[${active}]]*/ 'Dữ liệu về NavItemActive từ backend';
+    let listNavItem = ['home','shop','about','contact'];
+    for ( let i = 0; i < listNavItem.length; i++){
+      if(dataFromBackend == listNavItem[i]){
+        document.getElementById(`${dataFromBackend}`).classList.add("active");
+        break;
+      }
+    }
+  </script>
 </th:block>
