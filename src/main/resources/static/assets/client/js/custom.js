@@ -81,3 +81,19 @@ function showDropDown() {
 	}
 }
 
+function logOut(){
+	localStorage.removeItem('idUser');
+	localStorage.removeItem('fullNameUser');
+}
+let quantityOnCartIcon = document.getElementById('quantityInCart');
+function showQuantityOfProductOnCartIcon(){
+	const userId = localStorage.getItem("idUser");
+	let existingData = JSON.parse(localStorage.getItem('cart')) || [];
+
+	let userCart = existingData.find(user => user.userId === userId);
+	quantityOnCartIcon.innerHTML = userCart.cart.length.toString();
+}
+window.onload = () => {
+	showQuantityOfProductOnCartIcon();
+}
+

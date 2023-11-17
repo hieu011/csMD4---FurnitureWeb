@@ -30,4 +30,5 @@ public class RegisterRequest {
     @NotEmpty(message = "Vui lòng nhập địa chỉ")
     private String address;
 
+    private LocationRequest location;
 }

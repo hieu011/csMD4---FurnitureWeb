@@ -24,12 +24,12 @@
                     <li id="contact"><a class="nav-link" href="/contact">Contact us</a></li>
                 </ul>
 
-                <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+                <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5" id="userAndCart">
 
                     <li>
                         <a class="nav-link" href="javascript:void(0)" id="iconUser" onclick="showDropDown()"><img src="/assets/client/images/user.svg"></a>
                         <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" id="dropDownMenu" style="display: none">
-                            <li style="margin-right: 0"><span class="text-center" href="#" style="display: block;color: #dee2e6;width: 100%">Action</span></li>
+                            <li style="margin-right: 0"><span class="text-center" href="#" style="display: block;color: #dee2e6;width: 100%" id="fullNameUser"></span></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <a class="dropdown-item" href="#">
@@ -41,7 +41,7 @@
                             </li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
-                                <a class="dropdown-item" href="/logout">
+                                <a class="dropdown-item" href="/logout" onclick="logOut()">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16" style="margin-left: 1rem">
                                         <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
                                         <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
@@ -63,6 +63,11 @@
                     </li>
 
                 </ul>
+
+                <a href="/login" id="loginButton">
+                    <button class="btn btn-outline-primary" style="margin-left: 5rem">LOGIN</button>
+                </a>
+
             </div>
         </div>
 

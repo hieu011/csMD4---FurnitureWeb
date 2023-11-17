@@ -25,6 +25,7 @@ let productSelected = {};
 
 window.onload = async () => {
     await renderTable();
+    showQuantityOfProductOnCartIcon();
 }
 
 increaseButton.onclick = function (){
@@ -194,28 +195,46 @@ function showInfoInModal(product){
 }
 
 async function addProductToCart() {
-    const data = {
+    const userId = localStorage.getItem("idUser");
+    const item = {
         productId: productName.id,
-        userId:"",
+        productName: productName.textContent,
+        productPrice: productPrice.textContent,
+        productImage: carouselImage.querySelector('img').src,
         quantity: quantityInModal.value,
     }
-    const response = await fetch('/api/products/orderDetails',{
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    });
 
-    if (response.ok){
-        webToast.Success({
+    let existingData = JSON.parse(localStorage.getItem('cart')) || [];
+
+    let userCart = existingData.find(user => user.userId === userId);
+    if (!userCart) {
+        userCart = { userId: userId, cart: [] };
+        userCart.cart.push(item);
+        existingData.push(userCart);
+    } else {
+        let cartBefore = userCart.cart.find(cart => cart.productId === item.productId);
+        if(cartBefore){
+            let quantityInCart = parseInt(cartBefore.quantity);
+            let quantityAdd = parseInt(item.quantity);
+            let newQuantity = quantityInCart + quantityAdd;
+            cartBefore.quantity = newQuantity.toString();
+        } else {
+            userCart.cart.push(item)
+        }
+    }
+    console.log(existingData);
+
+    localStorage.setItem('cart', JSON.stringify(existingData));
+
+
+    webToast.Success({
             status: `Thêm sản phẩm thành công`,
             message: '',
-            delay: 2000,
+            delay: 3000,
             align: 'topright'
-        });
-    }
+    });
 
+    showQuantityOfProductOnCartIcon();
     $('#staticModal').modal('hide');
 }
 
@@ -251,6 +270,14 @@ const onSearch = (e) => {
     pageable.search = eSearch.value;
     pageable.page = 1;
     getList();
+}
+
+function showQuantityOfProductOnCartIcon(){
+    const userId = localStorage.getItem("idUser");
+    let existingData = JSON.parse(localStorage.getItem('cart')) || [];
+
+    let userCart = existingData.find(user => user.userId === userId);
+    quantityOnCartIcon.innerHTML = userCart.cart.length.toString();
 }
 
 

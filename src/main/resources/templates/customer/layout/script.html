@@ -1,9 +1,4 @@
 <th:block th:fragment="script">
-  <script src="/assets/admin/assets/vendor/libs/jquery/jquery.js"></script>
-  <script src="/assets/client/js/bootstrap.bundle.min.js"></script>
-  <script src="/assets/client/js/tiny-slider.js"></script>
-  <script src="/assets/client/js/custom.js"></script>
-  <script src="/assets/web-toast/src/webToast.js"></script>
   <script th:inline="javascript">
     let dataFromBackend = /*[[${active}]]*/ 'Dữ liệu về NavItemActive từ backend';
     let listNavItem = ['home','shop','about','contact'];
@@ -13,5 +8,22 @@
         break;
       }
     }
+
+    const idUser = localStorage.getItem("idUser");
+    const fullNameUser = localStorage.getItem("fullNameUser");
+    const userAndCart = document.getElementById("userAndCart");
+    const loginButton = document.getElementById("loginButton");
+    if(idUser && fullNameUser){
+      document.getElementById('fullNameUser').innerHTML = fullNameUser;
+      loginButton.replaceWith('');
+    } else {
+      userAndCart.replaceWith('');
+    }
   </script>
+  <script src="/assets/admin/assets/vendor/libs/jquery/jquery.js"></script>
+  <script src="/assets/client/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/client/js/tiny-slider.js"></script>
+  <script src="/assets/client/js/custom.js"></script>
+  <script src="/assets/web-toast/src/webToast.js"></script>
+
 </th:block>

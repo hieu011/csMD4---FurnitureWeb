@@ -36,6 +36,12 @@ public class AuthService implements UserDetailsService {
         var user = AppUtils.mapper.map(request, User.class);
         user.setRole(ERole.ROLE_USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        var location = AppUtils.mapper.map(request.getLocation(),Location.class);
+        locationRepository.save(location);
+        user.setProvinceName(location.getProvinceName());
+        user.setDistrictName(location.getDistrictName());
+        user.setWardName(location.getWardName());
+        user.setLocation(location);
         userRepository.save(user);
     }
 

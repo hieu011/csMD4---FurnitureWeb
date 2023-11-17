@@ -744,5 +744,11 @@ textarea {
   opacity: 1;
 }
 
+#loginButton button:hover{
+  background-color: #e3b552;
+  border-color:  #e3b552;
+  color: rgba(0, 0, 0, 0.69);
+}
+
 
 

@@ -51,7 +51,7 @@ public class AuthRestController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @ModelAttribute("user") RegisterRequest request,
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request,
                                       BindingResult result, Model model) throws IOException {
         authService.checkUsernameOrPhoneNumberOrEmail(request,result);
         model.addAttribute("user",request);

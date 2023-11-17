@@ -96,7 +96,7 @@ registerForm.onsubmit = async function (event) {
         address: address,
         location: location
     }
-    const response = await fetch('/api/auth',{
+    const response = await fetch('/api/auth/register',{
         method:'POST',
         headers: {
             'Content-Type': 'application/json'
