@@ -1,17 +1,16 @@
 let province = document.getElementById('province');
 let district = document.getElementById('district');
 let ward = document.getElementById('ward');
-const urlApiProvince = 'https://vapi.vnappmob.com/api/province/';
-const urlApiDistrict = 'https://vapi.vnappmob.com/api/province/district/';
-const urlApiWard = 'https://vapi.vnappmob.com/api/province/ward/';
+// const urlApiProvince = 'https://vapi.vnappmob.com/api/province/';
+const urlApiProvince = 'https://vapi.onedev.top/api/v1/provinces/';
+const urlApiDistrict = 'https://vapi.onedev.top/api/v1/provinces/districts/';
+const urlApiWard = 'https://vapi.onedev.top/api/v1/provinces/wards/';
 let registerForm = $('#registerForm');
 
 async function getAllProvinces() {
     const response = await fetch(urlApiProvince);
     const data = await response.json();
-    const provinces = data.results;
-
-    console.log(data)
+    const provinces = data;
     for (let item of provinces) {
         const str = renderOptionProvince(item);
         province.innerHTML += str;
@@ -19,21 +18,20 @@ async function getAllProvinces() {
 }
 
 
-async function getAllDistrictsByProvinceId(provinceID) {
-    const response = await fetch(urlApiDistrict + provinceID);
+async function getAllDistrictsByProvinceId(provinceId) {
+    const response = await fetch(urlApiDistrict + provinceId);
     const data = await response.json()
-    const districts = data.results;
+    const districts = data;
     district.innerHTML = '';
     for (let item of districts) {
         const str = renderOptionDistrict(item);
         district.innerHTML += str;
     }
 }
-
 async function getAllWardsByDistrictId(districtID) {
     const response = await fetch(urlApiWard + districtID);
     const data = await response.json();
-    const wards = data.results;
+    const wards = data;
     ward.innerHTML = '';
     for (let item of wards) {
         const str = renderOptionWard(item);
@@ -56,15 +54,15 @@ district.onchange = function () {
 }
 
 const renderOptionProvince = (obj) => {
-    return `<option value="${obj.province_id}">${obj.province_name}</option>`;
+    return `<option value="${obj.id}">${obj.name}</option>`;
 }
 
 const renderOptionDistrict = (obj) => {
-    return `<option value="${obj.district_id}">${obj.district_name}</option>`;
+    return `<option value="${obj.id}">${obj.name}</option>`;
 }
 
 const renderOptionWard = (obj) => {
-    return `<option value="${obj.ward_id}">${obj.ward_name}</option>`;
+    return `<option value="${obj.id}">${obj.name}</option>`;
 }
 
 registerForm.validate({
@@ -152,7 +150,9 @@ registerValid = async () => {
     let username = $('#username').val();
     let password = $('#password').val();
     let provinceId = province.selectedOptions[0].value;
+    console.log(provinceId)
     let provinceName = province.selectedOptions[0].textContent;
+    console.log(provinceName)
     let districtId = district.selectedOptions[0].value;
     let districtName = district.selectedOptions[0].textContent;
     let wardId = ward.selectedOptions[0].value;
@@ -185,13 +185,14 @@ registerValid = async () => {
     })
     console.log(response)
     if (response.ok) {
-        registerForm.reset();
+
         webToast.Success({
             status: `Đăng kí tài khoản thành công`,
             message: '',
             delay: 2000,
             align: 'topright'
         });
+        registerForm[0].reset();
     }
 }
 

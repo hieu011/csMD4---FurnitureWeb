@@ -32,11 +32,11 @@ public class AuthService implements UserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public void register(RegisterRequest request){
+    public void register(RegisterRequest request) {
         var user = AppUtils.mapper.map(request, User.class);
         user.setRole(ERole.ROLE_USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        var location = AppUtils.mapper.map(request.getLocation(),Location.class);
+        var location = AppUtils.mapper.map(request.getLocation(), Location.class);
         locationRepository.save(location);
         user.setProvinceName(location.getProvinceName());
         user.setDistrictName(location.getDistrictName());
@@ -45,18 +45,18 @@ public class AuthService implements UserDetailsService {
         userRepository.save(user);
     }
 
-    public boolean checkUsernameOrPhoneNumberOrEmail(RegisterRequest request, BindingResult result){
+    public boolean checkUsernameOrPhoneNumberOrEmail(RegisterRequest request, BindingResult result) {
         boolean check = false;
-        if(userRepository.existsByUsernameIgnoreCase(request.getUsername())){
+        if (userRepository.existsByUsernameIgnoreCase(request.getUsername())) {
             result.rejectValue("username", "username", "Tên người dùng đã tồn tại!");
             check = true;
         }
-        if(userRepository.existsByEmailIgnoreCase(request.getEmail())){
+        if (userRepository.existsByEmailIgnoreCase(request.getEmail())) {
             result.rejectValue("email", "email", "Email đã tồn tại!");
             check = true;
         }
-        if(userRepository.existsByPhoneNumber(request.getPhoneNumber())){
-            result.rejectValue("phoneNumber","phoneNumber","Số điện thoại đã tồn tại!");
+        if (userRepository.existsByPhoneNumber(request.getPhoneNumber())) {
+            result.rejectValue("phoneNumber", "phoneNumber", "Số điện thoại đã tồn tại!");
             check = true;
         }
         return check;
@@ -64,8 +64,8 @@ public class AuthService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsernameIgnoreCaseOrEmailIgnoreCaseOrPhoneNumber(username,username,username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not Exist") );
+        User user = userRepository.findByUsernameIgnoreCaseOrEmailIgnoreCaseOrPhoneNumber(username, username, username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not Exist"));
         var role = new ArrayList<SimpleGrantedAuthority>();
         role.add(new SimpleGrantedAuthority(user.getRole().toString()));
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), role);
