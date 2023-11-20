@@ -595,3 +595,12 @@ License - nucleoapp.com/license/
 
 
 /* all icon font classes list here */
+.error {
+  color: red;
+  background-color: #ffd1d1;
+  margin-bottom: 10px;
+  block-size: auto;
+  display: inline;
+  padding: 2px 10px;
+
+}

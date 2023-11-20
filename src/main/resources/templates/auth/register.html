@@ -17,24 +17,24 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="/assets/auth/img/apple-icon.png">
     <link rel="icon" type="image/png" href="/assets/client/favicon.png">
-    <link rel="stylesheet" href="/assets/web-toast/src/webToast.css" />
+    <link rel="stylesheet" href="/assets/web-toast/src/webToast.css"/>
     <title>
         Furni Register Page
     </title>
     <!--     Fonts and icons     -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet"/>
     <!-- Nucleo Icons -->
-    <link href="/assets/auth/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="/assets/auth/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="/assets/auth/css/nucleo-icons.css" rel="stylesheet"/>
+    <link href="/assets/auth/css/nucleo-svg.css" rel="stylesheet"/>
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <link href="/assets/auth/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="/assets/auth/css/nucleo-svg.css" rel="stylesheet"/>
     <!-- CSS Files -->
-    <link id="pagestyle" href="/assets/auth/css/soft-ui-dashboard.css?v=1.0.3" rel="stylesheet" />
+    <link id="pagestyle" href="/assets/auth/css/soft-ui-dashboard.css?v=1.0.3" rel="stylesheet"/>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -60,7 +60,8 @@
 </nav>
 <!-- End Navbar -->
 <section class="min-vh-100 mb-8">
-    <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" style="background-image: url('/assets/client/images/post-2.jpg');">
+    <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg"
+         style="background-image: url('/assets/client/images/post-2.jpg');">
         <span class="mask bg-gradient-dark opacity-6"></span>
         <div class="container">
             <div class="row justify-content-center">
@@ -86,7 +87,7 @@
                                        placeholder="FullName"
                                        id="fullName"
                                        name="fullName">
-                                <span class="text-danger" id="errorFullName"></span>
+                                <span class="text-danger" id="errorFullName hide"></span>
                             </div>
                             <div class="mb-3">
                                 <input type="text"
@@ -94,7 +95,7 @@
                                        placeholder="PhoneNumber"
                                        id="phoneNumber"
                                        name="phoneNumber"/>
-                                <span class="text-danger" id="errorPhoneNumber"></span>
+                                <span class="text-danger" id="errorPhoneNumber hide"></span>
                             </div>
                             <div class="mb-2">
                                 <input type="text"
@@ -102,7 +103,7 @@
                                        placeholder="Email"
                                        id="email"
                                        name="email"/>
-                                <span class="text-danger" id="errorEmail"></span>
+                                <span class="text-danger" id="errorEmail hide"></span>
                             </div>
 
                             <div class="row mb-2">
@@ -133,7 +134,7 @@
                                        placeholder="Address"
                                        id="address"
                                        name="address">
-                                <span class="text-danger" id="errorAddress"></span>
+                                <span class="text-danger" id="errorAddress hide"></span>
                             </div>
 
                             <div class="mb-3">
@@ -142,7 +143,7 @@
                                        placeholder="Username"
                                        id="username"
                                        name="username"/>
-                                <span class="text-danger" id="errorUsername"></span>
+                                <span class="text-danger" id="errorUsername hide"></span>
                             </div>
                             <div class="mb-3">
                                 <input type="password"
@@ -150,12 +151,15 @@
                                        placeholder="Password"
                                        id="password"
                                        name="password"/>
-                                <span class="text-danger" id="errorPassword"></span>
+                                <span class="text-danger" id="errorPassword hide"></span>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn bg-gradient-dark w-100 my-3 mb-2">Sign up</button>
+                                <button type="submit" id="signUp" class="btn bg-gradient-dark w-100 my-3 mb-2">Sign up
+                                </button>
                             </div>
-                            <p class="text-sm mt-3 mb-0">Already have an account? <a href="/login" class="text-dark font-weight-bolder">Sign in</a></p>
+                            <p class="text-sm mt-3 mb-0">Already have an account?
+                                <a href="/login" class="text-dark font-weight-bolder">Sign in</a>
+                            </p>
                         </form>
                     </div>
                 </div>
@@ -208,9 +212,11 @@
         <div class="row">
             <div class="col-8 mx-auto text-center mt-1">
                 <p class="mb-0 text-secondary">
-                    Copyright © <script>
-                    document.write(new Date().getFullYear())
-                </script> Soft by Creative Tim.
+                    Copyright ©
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>
+                    Soft by Creative Tim.
                 </p>
             </div>
         </div>
@@ -218,6 +224,15 @@
 </footer>
 <!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
 <!--   Core JS Files   -->
+
+<!-- Github buttons -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="/assets/admin/assets/vendor/libs/jquery/jquery.js"></script>
+<script src="/assets/client/jquery/jquery-3.7.1.min.js"></script>
+<script src="/assets/client/jquery/jquery.validate.min.js"></script>
+<script src="/assets/auth/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
+<script src="/assets/web-toast/src/webToast.js"></script>
 
 <script src="/assets/auth/js/core/popper.min.js"></script>
 <script src="/assets/auth/js/core/bootstrap.min.js"></script>
@@ -234,11 +249,6 @@
         Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
 </script>
-<!-- Github buttons -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-<!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-<script src="/assets/auth/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
-<script src="/assets/admin/assets/vendor/libs/jquery/jquery.js"></script>
-<script src="/assets/web-toast/src/webToast.js"></script>
+
 </body>
 </html>

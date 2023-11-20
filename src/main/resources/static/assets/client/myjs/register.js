@@ -4,19 +4,22 @@ let ward = document.getElementById('ward');
 const urlApiProvince = 'https://vapi.vnappmob.com/api/province/';
 const urlApiDistrict = 'https://vapi.vnappmob.com/api/province/district/';
 const urlApiWard = 'https://vapi.vnappmob.com/api/province/ward/';
-let registerForm = document.getElementById('registerForm');
+let registerForm = $('#registerForm');
 
-async function getAllProvinces(){
+async function getAllProvinces() {
     const response = await fetch(urlApiProvince);
     const data = await response.json();
     const provinces = data.results;
+
+    console.log(data)
     for (let item of provinces) {
         const str = renderOptionProvince(item);
         province.innerHTML += str;
     }
 }
 
-async function getAllDistrictsByProvinceId(provinceID){
+
+async function getAllDistrictsByProvinceId(provinceID) {
     const response = await fetch(urlApiDistrict + provinceID);
     const data = await response.json()
     const districts = data.results;
@@ -27,7 +30,7 @@ async function getAllDistrictsByProvinceId(provinceID){
     }
 }
 
-async function getAllWardsByDistrictId(districtID){
+async function getAllWardsByDistrictId(districtID) {
     const response = await fetch(urlApiWard + districtID);
     const data = await response.json();
     const wards = data.results;
@@ -43,7 +46,7 @@ province.onchange = function () {
     getAllDistrictsByProvinceId(provinceID).then(data => {
         const districtID = district.value;
         getAllWardsByDistrictId(districtID);
-    } );
+    });
 }
 
 district.onchange = function () {
@@ -64,20 +67,97 @@ const renderOptionWard = (obj) => {
     return `<option value="${obj.ward_id}">${obj.ward_name}</option>`;
 }
 
-registerForm.onsubmit = async function (event) {
-    event.preventDefault();
-    let fullName = document.getElementById('fullName').value;
-    let phoneNumber = document.getElementById('phoneNumber').value;
-    let email = document.getElementById('email').value;
-    let username = document.getElementById('username').value;
-    let password = document.getElementById('password').value;
+registerForm.validate({
+    onkeyup: function (element) {
+        $(element).valid()
+    },
+    onclick: false,
+    onfocusout: false,
+    rules: {
+        fullName: {
+            required: true,
+            minlength:5
+        },
+        phoneNumber: {
+            required: true,
+            number:true
+        },
+        email: {
+            required: true,
+            email:true
+        },
+        address: {
+            required: true,
+            minlength:5
+        },
+        username: {
+            required: true,
+            minlength:5
+        },
+        password: {
+            required: true,
+            // password:true
+        }
+
+    },
+    messages: {
+        fullName: {
+            required: 'Vui lòng nhập tên',
+            minlength: 'Tối thiểu 5 kí tự'
+        },
+        phoneNumber: {
+            required: 'Vui lòng nhập số điện thoại',
+            number: 'Vui lòng nhập đúng kí tự số'
+        },
+        email: {
+            required: 'Vui lòng nhập email',
+            email: 'Vui lòng nhập đúng định dạng email'
+        },
+        address: {
+            required: 'Vui lòng nhập địa chỉ',
+            minlength: 'Tối thiểu 5 kí tự'
+        },
+        username: {
+            required: 'Vui lòng nhập tên đăng nhập',
+            minlength: 'Tối thiểu 5 kí tự'
+        },
+        password: {
+            required: 'Vui lòng nhập mật khẩu',
+            // password: 'Mật khẩu phải chứa ít nhất một số và một ký tự và dài ít nhất 6 ký tự'
+        }
+    },
+    showErrors: function (errorMap, errorList) {
+        if (this.numberOfInvalids() > 0) {
+            $("#registerForm .area-error")
+                .removeClass("hide")
+                .addClass("show");
+        } else {
+            $("#registerForm .area-error")
+                .removeClass("show")
+                .addClass("hide").empty();
+            $("#registerForm input.error").removeClass("error");
+        }
+        this.defaultShowErrors();
+    },
+    submitHandler: () => {
+        registerValid()
+    }
+})
+
+
+registerValid = async () => {
+    let fullName = $('#fullName').val();
+    let phoneNumber = $('#phoneNumber').val();
+    let email = $('#email').val();
+    let username = $('#username').val();
+    let password = $('#password').val();
     let provinceId = province.selectedOptions[0].value;
     let provinceName = province.selectedOptions[0].textContent;
     let districtId = district.selectedOptions[0].value;
     let districtName = district.selectedOptions[0].textContent;
     let wardId = ward.selectedOptions[0].value;
     let wardName = ward.selectedOptions[0].textContent;
-    let address = document.getElementById('address').value;
+    let address = $('#address').val();
     const location = {
         provinceId: provinceId,
         provinceName: provinceName,
@@ -87,7 +167,7 @@ registerForm.onsubmit = async function (event) {
         wardName: wardName,
         address: address
     }
-    const data ={
+    const data = {
         fullName: fullName,
         phoneNumber: phoneNumber,
         email: email,
@@ -96,15 +176,15 @@ registerForm.onsubmit = async function (event) {
         address: address,
         location: location
     }
-    const response = await fetch('/api/auth/register',{
-        method:'POST',
+    const response = await fetch('/api/auth/register', {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
     })
     console.log(response)
-    if(response.ok){
+    if (response.ok) {
         registerForm.reset();
         webToast.Success({
             status: `Đăng kí tài khoản thành công`,
@@ -115,12 +195,17 @@ registerForm.onsubmit = async function (event) {
     }
 }
 
+registerForm.onsubmit = function (event) {
+    event.preventDefault();
+    registerForm.trigger("submit");
+}
+
 window.onload = () => {
     getAllProvinces().then(data => {
         const provinceID = province.value;
         getAllDistrictsByProvinceId(provinceID).then(data => {
             const districtID = district.value;
             getAllWardsByDistrictId(districtID);
-        } );
-    } )
+        });
+    })
 }
