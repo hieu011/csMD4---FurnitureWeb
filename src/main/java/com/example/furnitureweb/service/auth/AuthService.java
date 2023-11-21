@@ -1,8 +1,10 @@
 package com.example.furnitureweb.service.auth;
 
 import com.example.furnitureweb.model.Enum.ERole;
+import com.example.furnitureweb.model.Location;
 import com.example.furnitureweb.model.User;
 import com.example.furnitureweb.model.dto.authDTO.RegisterRequest;
+import com.example.furnitureweb.repository.LocationRepository;
 import com.example.furnitureweb.repository.UserRepository;
 import com.example.furnitureweb.utils.AppUtils;
 import lombok.AllArgsConstructor;
@@ -28,10 +30,18 @@ public class AuthService implements UserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final LocationRepository locationRepository;
+
     public void register(RegisterRequest request) {
+        var location = AppUtils.mapper.map(request.getLocation(), Location.class);
+        locationRepository.save(location);
         var user = AppUtils.mapper.map(request, User.class);
         user.setRole(ERole.ROLE_USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setProvinceName(location.getProvinceName());
+        user.setDistrictName(location.getDistrictName());
+        user.setWardName(location.getWardName());
+        user.setLocation(location);
         userRepository.save(user);
     }
 
