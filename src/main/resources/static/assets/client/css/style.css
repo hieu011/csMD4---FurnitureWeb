@@ -750,5 +750,10 @@ textarea {
   color: rgba(0, 0, 0, 0.69);
 }
 
+.disabled-button {
+  cursor: not-allowed;
+  pointer-events: auto !important;
+}
+
 
 

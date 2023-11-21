@@ -67,18 +67,6 @@
             </a>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-12">
-            <label class="text-black h4" for="coupon">Coupon</label>
-            <p>Enter your coupon code if you have one.</p>
-          </div>
-          <div class="col-md-8 mb-3 mb-md-0">
-            <input type="text" class="form-control py-3" id="coupon" placeholder="Coupon Code">
-          </div>
-          <div class="col-md-4">
-            <button class="btn btn-black" id="applyCouponButton">Apply Coupon</button>
-          </div>
-        </div>
       </div>
       <div class="col-md-6 pl-5">
         <div class="row justify-content-end">
@@ -93,7 +81,7 @@
                 <span class="text-black">Subtotal</span>
               </div>
               <div class="col-md-6 text-right">
-                <strong class="text-black">$230.00</strong>
+                <strong class="text-black" id="subtotal"></strong>
               </div>
             </div>
             <div class="row mb-5">
@@ -101,15 +89,13 @@
                 <span class="text-black">Total</span>
               </div>
               <div class="col-md-6 text-right">
-                <strong class="text-black">$230.00</strong>
+                <strong class="text-black" id="total"></strong>
               </div>
             </div>
 
             <div class="row">
               <div class="col-md-12">
-                <a href="/checkout">
                   <button class="btn btn-black btn-lg py-3 btn-block" id="checkOutButton">Proceed To Checkout</button>
-                </a>
               </div>
             </div>
           </div>
