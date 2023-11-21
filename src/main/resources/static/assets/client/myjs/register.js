@@ -1,69 +1,4 @@
-let province = document.getElementById('province');
-let district = document.getElementById('district');
-let ward = document.getElementById('ward');
-// const urlApiProvince = 'https://vapi.vnappmob.com/api/province/';
-const urlApiProvince = 'https://vapi.onedev.top/api/v1/provinces/';
-const urlApiDistrict = 'https://vapi.onedev.top/api/v1/provinces/districts/';
-const urlApiWard = 'https://vapi.onedev.top/api/v1/provinces/wards/';
 let registerForm = $('#registerForm');
-
-async function getAllProvinces() {
-    const response = await fetch(urlApiProvince);
-    const data = await response.json();
-    const provinces = data;
-    for (let item of provinces) {
-        const str = renderOptionProvince(item);
-        province.innerHTML += str;
-    }
-}
-
-
-async function getAllDistrictsByProvinceId(provinceId) {
-    const response = await fetch(urlApiDistrict + provinceId);
-    const data = await response.json()
-    const districts = data;
-    district.innerHTML = '';
-    for (let item of districts) {
-        const str = renderOptionDistrict(item);
-        district.innerHTML += str;
-    }
-}
-async function getAllWardsByDistrictId(districtID) {
-    const response = await fetch(urlApiWard + districtID);
-    const data = await response.json();
-    const wards = data;
-    ward.innerHTML = '';
-    for (let item of wards) {
-        const str = renderOptionWard(item);
-        ward.innerHTML += str;
-    }
-}
-
-province.onchange = function () {
-    const provinceID = this.value;
-    getAllDistrictsByProvinceId(provinceID).then(data => {
-        const districtID = district.value;
-        getAllWardsByDistrictId(districtID);
-    });
-}
-
-district.onchange = function () {
-    const districtID = this.value;
-    getAllWardsByDistrictId(districtID).then(data => {
-    });
-}
-
-const renderOptionProvince = (obj) => {
-    return `<option value="${obj.id}">${obj.name}</option>`;
-}
-
-const renderOptionDistrict = (obj) => {
-    return `<option value="${obj.id}">${obj.name}</option>`;
-}
-
-const renderOptionWard = (obj) => {
-    return `<option value="${obj.id}">${obj.name}</option>`;
-}
 
 registerForm.validate({
     onkeyup: function (element) {
@@ -149,24 +84,8 @@ registerValid = async () => {
     let email = $('#email').val();
     let username = $('#username').val();
     let password = $('#password').val();
-    let provinceId = province.selectedOptions[0].value;
-    console.log(provinceId)
-    let provinceName = province.selectedOptions[0].textContent;
-    console.log(provinceName)
-    let districtId = district.selectedOptions[0].value;
-    let districtName = district.selectedOptions[0].textContent;
-    let wardId = ward.selectedOptions[0].value;
-    let wardName = ward.selectedOptions[0].textContent;
     let address = $('#address').val();
-    const location = {
-        provinceId: provinceId,
-        provinceName: provinceName,
-        districtId: districtId,
-        districtName: districtName,
-        wardId: wardId,
-        wardName: wardName,
-        address: address
-    }
+
     const data = {
         fullName: fullName,
         phoneNumber: phoneNumber,
@@ -174,7 +93,6 @@ registerValid = async () => {
         username: username,
         password: password,
         address: address,
-        location: location
     }
     const response = await fetch('/api/auth/register', {
         method: 'POST',
@@ -199,14 +117,4 @@ registerValid = async () => {
 registerForm.onsubmit = function (event) {
     event.preventDefault();
     registerForm.trigger("submit");
-}
-
-window.onload = () => {
-    getAllProvinces().then(data => {
-        const provinceID = province.value;
-        getAllDistrictsByProvinceId(provinceID).then(data => {
-            const districtID = district.value;
-            getAllWardsByDistrictId(districtID);
-        });
-    })
 }

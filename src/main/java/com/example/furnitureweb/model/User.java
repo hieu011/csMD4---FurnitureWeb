@@ -39,15 +39,6 @@ public class User {
 
     private String address;
 
-    private String provinceName;
-
-    private String districtName;
-
-    private String wardName;
-
-    @OneToOne
-    private Location location;
-
     @OneToMany
     private List<OrderDetail> orderDetail;
 }
