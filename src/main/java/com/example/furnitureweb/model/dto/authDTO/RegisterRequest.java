@@ -2,6 +2,7 @@ package com.example.furnitureweb.model.dto.authDTO;
 
 
 
+import com.example.furnitureweb.model.dto.locationDTO.LocationRequest;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.Errors;
@@ -30,6 +31,8 @@ public class RegisterRequest implements Validator {
 
     @NotEmpty(message = "Vui lòng nhập địa chỉ")
     private String address;
+
+    private LocationRequest location;
 
     @Override
     public boolean supports(Class<?> clazz) {

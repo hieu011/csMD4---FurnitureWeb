@@ -48,68 +48,50 @@
 
           <div class="form-group row">
             <div class="col-md-12">
-              <label for="c_companyname" class="text-black">Full name <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="c_companyname" name="c_companyname">
+              <label for="fullName" class="text-black">Full name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="fullName" readonly>
             </div>
           </div>
 
           <div class="form-group row">
             <div class="col-md-6">
-              <label for="c_fname" class="text-black">Email <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="c_fname" name="c_fname">
+              <label for="email" class="text-black">Email <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="email" readonly>
             </div>
             <div class="col-md-6">
-              <label for="c_lname" class="text-black">Phone Number <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="c_lname" name="c_lname">
+              <label for="phoneNumber" class="text-black">Phone Number <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="phoneNumber" readonly>
             </div>
           </div>
 
           <div class="form-group row">
             <div class="col-6">
-              <label class="form-label text-black">Province</label>
-              <input class="form-control" id="province">
+              <label class="text-black">Province<span class="text-danger">*</span></label>
+              <select class="form-select form-control" id="province">
+
+              </select>
             </div>
             <div class="col-6">
-              <label class="form-label text-black">District</label>
-              <input class="form-control" id="district">
+              <label class="text-black">District<span class="text-danger">*</span></label>
+              <select class="form-select form-control" id="district">
+
+              </select>
             </div>
           </div>
 
           <div class="row mb-3 justify-content-center">
             <div class="col-6">
-              <label class="form-label text-black">Ward</label>
-              <input class="form-control" id="ward">
+              <label class="text-black">Ward<span class="text-danger">*</span></label>
+              <select class="form-select form-control" id="ward">
+
+              </select>
             </div>
           </div>
 
           <div class="form-group row">
             <div class="col-md-12">
-              <label for="c_address" class="text-black">Address <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="c_address" name="c_address" placeholder="Street address">
-            </div>
-          </div>
-
-          <div class="form-group mt-3">
-            <input type="text" class="form-control" placeholder="Apartment, suite, unit etc. (optional)">
-          </div>
-
-          <div class="form-group mt-3">
-            <label for="c_ship_different_address" class="text-black" data-bs-toggle="collapse" href="#ship_different_address" role="button" aria-expanded="false" aria-controls="ship_different_address"><input type="checkbox" value="1" id="c_ship_different_address"> Ship To A Different Address?</label>
-            <div class="collapse" id="ship_different_address">
-              <div class="py-2">
-                <div class="form-group row  mb-3">
-                  <div class="col-md-12">
-                    <label for="c_diff_address" class="text-black">Address <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="c_diff_address" name="c_diff_address" placeholder="Street address">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Apartment, suite, unit etc. (optional)">
-                </div>
-
-              </div>
-
+              <label for="address" class="text-black">Address <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="address" name="c_address" placeholder="Street address">
             </div>
           </div>
 
@@ -198,6 +180,7 @@
 
 <!--Script-->
 <th:block th:replace="customer/layout/script" />
+<script src="/assets/client/myjs/checkout.js"></script>
 <!---->
 </body>
 
