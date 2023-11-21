@@ -17,24 +17,24 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="/assets/auth/img/apple-icon.png">
     <link rel="icon" type="image/png" href="/assets/client/favicon.png">
-    <link rel="stylesheet" href="/assets/web-toast/src/webToast.css" />
+    <link rel="stylesheet" href="/assets/web-toast/src/webToast.css"/>
     <title>
-       Furni Login Page
+        Furni Login Page
     </title>
     <!--     Fonts and icons     -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet"/>
     <!-- Nucleo Icons -->
-    <link href="/assets/auth/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="/assets/auth/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="/assets/auth/css/nucleo-icons.css" rel="stylesheet"/>
+    <link href="/assets/auth/css/nucleo-svg.css" rel="stylesheet"/>
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <link href="/assets/auth/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="/assets/auth/css/nucleo-svg.css" rel="stylesheet"/>
     <!-- CSS Files -->
-    <link id="pagestyle" href="/assets/auth/css/soft-ui-dashboard.css?v=1.0.3" rel="stylesheet" />
+    <link id="pagestyle" href="/assets/auth/css/soft-ui-dashboard.css?v=1.0.3" rel="stylesheet"/>
 </head>
 
 <body class="">
@@ -48,7 +48,9 @@
                     <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3" href="/home">
                         Furni.
                     </a>
-                    <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false"
+                            aria-label="Toggle navigation">
               <span class="navbar-toggler-icon mt-2">
                 <span class="navbar-toggler-bar bar1"></span>
                 <span class="navbar-toggler-bar bar2"></span>
@@ -72,7 +74,8 @@
                         </ul>
                         <ul class="navbar-nav d-lg-block d-none">
                             <li class="nav-item">
-                                <a href="/shop" class="btn btn-sm btn-round mb-0 me-1 bg-gradient-dark">Furniture Shop</a>
+                                <a href="/shop" class="btn btn-sm btn-round mb-0 me-1 bg-gradient-dark">Furniture
+                                    Shop</a>
                             </li>
                         </ul>
                     </div>
@@ -94,17 +97,28 @@
                                 <p class="mb-0">Enter your username and password to sign in</p>
                             </div>
                             <div class="card-body">
-                                <form role="form" id="login" onsubmit="submitLogin(event)">
-                                    <label>Username</label>
+                                <form role="form" id="loginForm" ><!--onsubmit="submitLogin(event)"-->
                                     <div class="mb-3">
-                                        <input type="text" class="form-control" placeholder="Username" name="username" id="username">
+                                        <label class="form-label">Username</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               placeholder="Username"
+                                               name="username"
+                                               id="username"/>
+                                        <span class="text-danger" id="errorUsername hide"></span>
                                     </div>
-                                    <label>Password</label>
                                     <div class="mb-3">
-                                        <input type="password" class="form-control" placeholder="Password" name="password" id="password">
+                                        <label class="form-label">Password</label>
+                                        <input type="password"
+                                               class="form-control"
+                                               placeholder="Password"
+                                               name="password"
+                                               id="password"/>
+                                        <span class="text-danger" id="errorPassword hide"></span>
                                     </div>
                                     <div class="text-center">
-                                        <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Sign in</button>
+                                        <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Sign in
+                                        </button>
                                     </div>
                                 </form>
                             </div>
@@ -118,7 +132,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="oblique position-absolute top-0 h-100 d-md-block d-none me-n8">
-                            <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6" style="background-image:url('http://localhost:9001/assets/client/images/img-grid-1.jpg')"></div>
+                            <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6"
+                                 style="background-image:url('http://localhost:9001/assets/client/images/img-grid-1.jpg')"></div>
                         </div>
                     </div>
                 </div>
@@ -171,15 +186,21 @@
         <div class="row">
             <div class="col-8 mx-auto text-center mt-1">
                 <p class="mb-0 text-secondary">
-                    Copyright © <script>
-                    document.write(new Date().getFullYear())
-                </script> Soft by Creative Tim.
+                    Copyright ©
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>
+                    Soft by Creative Tim.
                 </p>
             </div>
         </div>
     </div>
 </footer>
 <!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
+<script src="/assets/admin/assets/vendor/libs/jquery/jquery.js"></script>
+
+<script src="/assets/client/jquery/jquery-3.7.1.min.js"></script>
+<script src="/assets/client/jquery/jquery.validate.min.js"></script>
 <!--   Core JS Files   -->
 <script src="/assets/auth/js/core/popper.min.js"></script>
 <script src="/assets/auth/js/core/bootstrap.min.js"></script>
@@ -198,33 +219,33 @@
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="/assets/auth/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
-<script src="/assets/admin/assets/vendor/libs/jquery/jquery.js"></script>
 <script src="/assets/web-toast/src/webToast.js"></script>
-<script>
-   async function submitLogin(event){
-        event.preventDefault();
-        let username = document.getElementById('username').value
-        let password = document.getElementById('password').value
-        const data = {
-            username: username,
-            password: password,
-        }
-        const response = await fetch('/api/auth/login',{
-            method:'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
+<script src="/assets/client/myjs/login.js"></script>
+<!--<script>-->
+<!--   async function submitLogin(event){-->
+<!--        event.preventDefault();-->
+<!--        let username = document.getElementById('username').value-->
+<!--        let password = document.getElementById('password').value-->
+<!--        const data = {-->
+<!--            username: username,-->
+<!--            password: password,-->
+<!--        }-->
+<!--        const response = await fetch('/api/auth/login',{-->
+<!--            method:'POST',-->
+<!--            headers: {-->
+<!--                'Content-Type': 'application/json'-->
+<!--            },-->
+<!--            body: JSON.stringify(data)-->
+<!--        })-->
 
-       if(response.ok){
-           const jwtRes = await response.json();
-           localStorage.setItem("idUser",jwtRes.id)
-           localStorage.setItem("fullNameUser",jwtRes.fullName)
-           window.location.href = '/home';
-       }
-    }
-</script>
+<!--       if(response.ok){-->
+<!--           const jwtRes = await response.json();-->
+<!--           localStorage.setItem("idUser",jwtRes.id)-->
+<!--           localStorage.setItem("fullNameUser",jwtRes.fullName)-->
+<!--           window.location.href = '/home';-->
+<!--       }-->
+<!--    }-->
+<!--</script>-->
 </body>
 
 </html>

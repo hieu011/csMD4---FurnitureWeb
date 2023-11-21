@@ -53,11 +53,19 @@ public class AuthRestController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request,
                                       BindingResult result, Model model) throws IOException {
+
         authService.checkUsernameOrPhoneNumberOrEmail(request,result);
         model.addAttribute("user",request);
+        new RegisterRequest().validate(request,result);
+
         if(result.hasErrors()){
             return AppUtils.mapErrorToResponse(result);
         }
+        if (userService.existsByUsername(request.getUsername())) {
+            model.addAttribute("success" , true);
+            model.addAttribute("message", "username đã tồn tại");
+        }
+
         try {
             authService.register(request);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -68,7 +76,8 @@ public class AuthRestController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest request,BindingResult bindingResult) {
+
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));

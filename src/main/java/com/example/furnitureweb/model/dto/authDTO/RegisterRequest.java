@@ -48,7 +48,7 @@ public class RegisterRequest implements Validator {
         if (fullName.length() < 7) {
             errors.rejectValue("fullName",
                     "fullName.length",
-                    "Tên phải có ít nhất là 5 ký tự");
+                    "Tên phải có ít nhất là 7 ký tự");
         }
         if (phoneNumber.isEmpty()) {
             errors.rejectValue("phoneNumber",

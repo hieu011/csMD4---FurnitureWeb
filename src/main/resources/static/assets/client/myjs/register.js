@@ -2,30 +2,30 @@ let registerForm = $('#registerForm');
 
 registerForm.validate({
     onkeyup: function (element) {
-        $(element).valid()
+        $(element).valid();
     },
     onclick: false,
     onfocusout: false,
     rules: {
         fullName: {
             required: true,
-            minlength:5
+            minlength: 5
         },
         phoneNumber: {
             required: true,
-            number:true
+            number: true
         },
         email: {
             required: true,
-            email:true
+            email: true
         },
         address: {
             required: true,
-            minlength:5
+            minlength: 5
         },
         username: {
             required: true,
-            minlength:5
+            minlength: 5
         },
         password: {
             required: true,
@@ -59,19 +59,19 @@ registerForm.validate({
             // password: 'Mật khẩu phải chứa ít nhất một số và một ký tự và dài ít nhất 6 ký tự'
         }
     },
-    showErrors: function (errorMap, errorList) {
-        if (this.numberOfInvalids() > 0) {
-            $("#registerForm .area-error")
-                .removeClass("hide")
-                .addClass("show");
-        } else {
-            $("#registerForm .area-error")
-                .removeClass("show")
-                .addClass("hide").empty();
-            $("#registerForm input.error").removeClass("error");
-        }
-        this.defaultShowErrors();
-    },
+    // showErrors: function (errorMap, errorList) {
+    //     if (this.numberOfInvalids() > 0) {
+    //         $("#registerForm .area-error")
+    //             .removeClass("hide")
+    //             .addClass("show");
+    //     } else {
+    //         $("#registerForm .area-error")
+    //             .removeClass("show")
+    //             .addClass("hide").empty();
+    //         $("#registerForm input.error").removeClass("error");
+    //     }
+    //     this.defaultShowErrors();
+    // },
     submitHandler: () => {
         registerValid()
     }
@@ -94,23 +94,43 @@ registerValid = async () => {
         password: password,
         address: address,
     }
-    const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    console.log(response)
-    if (response.ok) {
 
-        webToast.Success({
-            status: `Đăng kí tài khoản thành công`,
-            message: '',
-            delay: 2000,
-            align: 'topright'
+
+    try {
+        // Gọi hàm đăng kí tài khoản
+        const response = await fetch('/api/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
         });
-        registerForm[0].reset();
+        // console.log(response)
+        if (response.ok) {
+            webToast.Success({
+                status: `Đăng kí tài khoản thành công`,
+                message: '',
+                delay: 2000,
+                align: 'topright'
+            });
+            registerForm[0].reset();
+        } else {
+            const errorText = await response.json();
+            // console.log(errorText);
+            Object.keys(errorText).forEach((fieldName) => {
+                const errorMessage = errorText[fieldName];
+                console.log(errorMessage);
+                console.log('#' + fieldName + 'Error');
+                const field= $('#' + fieldName + 'Error');
+                field.removeClass('hide').addClass('show');
+                field.text(errorMessage);
+            });
+            throw new Error('Đăng kí tài khoản thất bại');
+        }
+    } catch (error) {
+        // Xử lý lỗi
+        console.log(error);
+        // Hiển thị thông báo lỗi cho người dùng hoặc thực hiện các hành động khác
     }
 }
 

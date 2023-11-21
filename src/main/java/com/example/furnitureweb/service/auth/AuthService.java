@@ -39,15 +39,15 @@ public class AuthService implements UserDetailsService {
         boolean check = false;
         if (userRepository.existsByUsernameIgnoreCase(request.getUsername())) {
             result.rejectValue("username", "username", "Tên người dùng đã tồn tại!");
-            check = true;
+          return   check = true;
         }
         if (userRepository.existsByEmailIgnoreCase(request.getEmail())) {
             result.rejectValue("email", "email", "Email đã tồn tại!");
-            check = true;
+          return   check = true;
         }
         if (userRepository.existsByPhoneNumber(request.getPhoneNumber())) {
             result.rejectValue("phoneNumber", "phoneNumber", "Số điện thoại đã tồn tại!");
-            check = true;
+         return    check = true;
         }
         return check;
     }
