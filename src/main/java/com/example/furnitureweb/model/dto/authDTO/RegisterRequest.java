@@ -48,10 +48,10 @@ public class RegisterRequest implements Validator {
         String password = registerRequest.password;
         String email = registerRequest.email;
         String address = registerRequest.address;
-        if (fullName.length() < 7) {
+        if (fullName.length() < 5) {
             errors.rejectValue("fullName",
                     "fullName.length",
-                    "Tên phải có ít nhất là 7 ký tự");
+                    "Tên phải có ít nhất là 5 ký tự");
         }
         if (phoneNumber.isEmpty()) {
             errors.rejectValue("phoneNumber",

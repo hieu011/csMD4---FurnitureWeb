@@ -1,6 +1,7 @@
 package com.example.furnitureweb.controller.restController;
 
 import com.example.furnitureweb.exception.DataInputException;
+import com.example.furnitureweb.exception.UnauthorizedException;
 import com.example.furnitureweb.model.User;
 import com.example.furnitureweb.model.dto.authDTO.LoginRequest;
 import com.example.furnitureweb.model.dto.authDTO.RegisterRequest;
@@ -54,16 +55,12 @@ public class AuthRestController {
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request,
                                       BindingResult result, Model model) throws IOException {
 
-        authService.checkUsernameOrPhoneNumberOrEmail(request,result);
-        model.addAttribute("user",request);
-        new RegisterRequest().validate(request,result);
+        authService.checkUsernameOrPhoneNumberOrEmail(request, result);
+        model.addAttribute("user", request);
+        new RegisterRequest().validate(request, result);
 
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             return AppUtils.mapErrorToResponse(result);
-        }
-        if (userService.existsByUsername(request.getUsername())) {
-            model.addAttribute("success" , true);
-            model.addAttribute("message", "username đã tồn tại");
         }
 
         try {
@@ -76,12 +73,20 @@ public class AuthRestController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request,BindingResult bindingResult) {
-
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request, BindingResult bindingResult) {
+        authService.checkUsernameAndPassword(request, bindingResult);
+        new LoginRequest().validate(request, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return AppUtils.mapErrorToResponse(bindingResult);
+        }
+        Authentication authentication;
         try {
-            Authentication authentication = authenticationManager.authenticate(
+             authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new UnauthorizedException("Username or password invalid");
+        }
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
             String jwt = jwtService.generateTokenLogin(authentication);
@@ -110,9 +115,6 @@ public class AuthRestController {
                     .ok()
                     .header(HttpHeaders.SET_COOKIE, springCookie.toString())
                     .body(jwtResponse);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+
     }
 }

@@ -7,7 +7,7 @@ const urlApiDistrict = 'https://vapi.vnappmob.com/api/province/district/';
 const urlApiWard = 'https://vapi.vnappmob.com/api/province/ward/';
 
 
-async function getAllProvinces(){
+async function getAllProvinces() {
     const response = await fetch(urlApiProvince);
     const data = await response.json();
     const provinces = data.results;
@@ -17,7 +17,7 @@ async function getAllProvinces(){
     }
 }
 
-async function getAllDistrictsByProvinceId(provinceID){
+async function getAllDistrictsByProvinceId(provinceID) {
     const response = await fetch(urlApiDistrict + provinceID);
     const data = await response.json()
     const districts = data.results;
@@ -28,7 +28,7 @@ async function getAllDistrictsByProvinceId(provinceID){
     }
 }
 
-async function getAllWardsByDistrictId(districtID){
+async function getAllWardsByDistrictId(districtID) {
     const response = await fetch(urlApiWard + districtID);
     const data = await response.json();
     const wards = data.results;
@@ -44,7 +44,7 @@ province.onchange = function () {
     getAllDistrictsByProvinceId(provinceID).then(data => {
         const districtID = district.value;
         getAllWardsByDistrictId(districtID);
-    } );
+    });
 }
 
 district.onchange = function () {
@@ -187,6 +187,7 @@ registerValid = async () => {
             body: JSON.stringify(data)
         });
         // console.log(response)
+        registerForm.find('span').empty();
         if (response.ok) {
             webToast.Success({
                 status: `Đăng kí tài khoản thành công`,
@@ -195,16 +196,30 @@ registerValid = async () => {
                 align: 'topright'
             });
             registerForm[0].reset();
+
         } else {
             const errorText = await response.json();
-            // console.log(errorText);
+
             Object.keys(errorText).forEach((fieldName) => {
                 const errorMessage = errorText[fieldName];
-                console.log(errorMessage);
-                console.log('#' + fieldName + 'Error');
-                const field= $('#' + fieldName + 'Error');
-                field.removeClass('hide').addClass('show');
-                field.text(errorMessage);
+                const errorSpanId = fieldName + 'Error';
+                const errorSpan = $('#' + errorSpanId);
+                const div = $('#' + fieldName).closest('div');
+
+                errorSpan.text("")
+                if (errorMessage) {
+                    const newErrorSpan = $('<label>')
+                        .attr('id', errorSpanId)
+                        .text(errorMessage).addClass('error');
+                    div.append(newErrorSpan);
+                } else {
+                    div.removeChild(errorSpan)
+                    errorSpan.parentNode.removeChild(errorSpan)
+                    errorSpan.remove();
+                }
+                if (errorSpan.length > 0) {
+                    errorSpan.remove();
+                }
             });
             throw new Error('Đăng kí tài khoản thất bại');
         }
@@ -218,6 +233,7 @@ registerValid = async () => {
 registerForm.onsubmit = function (event) {
     event.preventDefault();
     registerForm.trigger("submit");
+
 }
 
 window.onload = () => {
@@ -226,6 +242,6 @@ window.onload = () => {
         getAllDistrictsByProvinceId(provinceID).then(data => {
             const districtID = district.value;
             getAllWardsByDistrictId(districtID);
-        } );
-    } )
+        });
+    })
 }

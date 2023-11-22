@@ -56,9 +56,32 @@ loginValid = async () => {
 
     if (response.ok) {
         const jwtRes = await response.json();
-        localStorage.setItem("idUser", jwtRes.id)
-        localStorage.setItem("fullNameUser", jwtRes.fullName)
+        localStorage.setItem("idUser", jwtRes.id);
+        localStorage.setItem("fullNameUser", jwtRes.fullName);
         window.location.href = '/home';
+    } else {
+        const errorText = await response.json();
+        Object.keys(errorText).forEach((errorPass)=>{
+            const errorMessage = errorText[errorPass];
+            const errorSpanId = errorPass + 'Error';
+            const errorSpan = $('#' + errorSpanId);
+            const div = $('#' + errorPass).closest('div');
+            errorSpan.text("")
+            if (errorMessage) {
+                const newErrorSpan = $('<label>')
+                    .attr('id', errorSpanId)
+                    .text(errorMessage).addClass('error');
+                div.append(newErrorSpan);
+            } else {
+                div.removeChild(errorSpan)
+                errorSpan.parentNode.removeChild(errorSpan)
+                errorSpan.remove();
+            }
+            if (errorSpan.length > 0) {
+                errorSpan.remove();
+            }
+
+        })
     }
 }
 
