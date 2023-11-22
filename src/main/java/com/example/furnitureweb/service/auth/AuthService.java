@@ -65,8 +65,10 @@ public class AuthService implements UserDetailsService {
         boolean check = false;
         Optional<User> userOptional = userRepository.findByUsername(request.getUsername());
         if (userOptional.isEmpty()
-                || !passwordEncoder.encode(userOptional.get().getPassword())
-                                            .equals(request.getPassword())) {
+                || passwordEncoder.matches(userOptional.get().getPassword(),request.getPassword())) {
+            System.out.println(userOptional.get().getPassword());
+            System.out.println((request.getPassword()));
+            System.out.println(passwordEncoder.encode(request.getPassword()));
             result.rejectValue("password", "password",
                     "Tài khoản hoặc mật khẩu không đúng");
             check = true;
