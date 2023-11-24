@@ -26,14 +26,14 @@ public class OrderDetailService {
     private final ProductRepository productRepository;
 
     public void create(OrderDetailRequest request){
-        OrderDetail orderDetail = new OrderDetail();
-        Product product = productRepository.findProductByOrderDetail(Long.valueOf(request.getProductId()));
-//        User user = userRepository.findUserByOrderDetail(Long.valueOf(request.getUserID()));
-        orderDetail.setName(product.getName());
-        orderDetail.setPrice(product.getPrice());
-        orderDetail.setQuantity(Long.valueOf(request.getQuantity()));
-        orderDetail.setProduct(product);
-//        orderDetail.setUser(user);
-        orderDetailRepository.save(orderDetail);
+//        OrderDetail orderDetail = new OrderDetail();
+////        Product product = productRepository.findProductByOrderDetail(Long.valueOf(request.getProductId()));
+////        User user = userRepository.findUserByOrderDetail(Long.valueOf(request.getUserID()));
+//        orderDetail.setName(product.getName());
+//        orderDetail.setPrice(product.getPrice());
+//        orderDetail.setQuantity(Long.valueOf(request.getQuantity()));
+//        orderDetail.setProduct(product);
+////        orderDetail.setUser(user);
+//        orderDetailRepository.save(orderDetail);
     }
 }

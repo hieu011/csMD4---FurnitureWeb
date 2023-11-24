@@ -35,4 +35,13 @@ public class OrderDetail {
 
     @ManyToOne
     private User user;
+
+    public OrderDetail(String name, BigDecimal price, Long quantity, Product product, Order order, User user) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.product = product;
+        this.order = order;
+        this.user = user;
+    }
 }

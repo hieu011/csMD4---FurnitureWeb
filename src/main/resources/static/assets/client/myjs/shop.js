@@ -14,6 +14,10 @@ let productStockQuantity = document.getElementById('productStockQuantity');
 let carouselImage = document.getElementById('carousel-productImage');
 let iconUser = document.getElementById('iconUser');
 let dropDownMenu = document.getElementById('dropDownMenu');
+let quantityAndBtnHTML = document.getElementById('quantityAndBtnHTML');
+let quantityHTML = document.getElementById('quantityHTML');
+let addToCartButtonHTML = document.getElementById('addToCartButtonHTML');
+let soldOut = document.getElementById('soldOut');
 let pageable = {
     page: 1,
     sort: 'id,desc',
@@ -186,12 +190,26 @@ function showInfoInModal(product){
     productName.setAttribute('id',product.id);
     productDescription.innerHTML = product.description;
     let formatPrice = product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
-    console.log(formatPrice)
     productPrice.innerHTML = formatPrice;
     productCategory.innerHTML = product.category;
     productMaterial.innerHTML = product.material;
-    productStockQuantity.innerHTML = product.stockQuantity;
     carouselImage.innerHTML = imagesHTML;
+    if (product.stockQuantity > 0) {
+        productStockQuantity.innerHTML = product.stockQuantity;
+        quantityHTML.classList.remove('show-when-out-of-stock');
+        addToCartButtonHTML.classList.remove('show-when-out-of-stock');
+        soldOut.classList.remove('show-when-in-stock');
+        soldOut.classList.add('show-when-out-of-stock');
+    } else {
+        productStockQuantity.innerHTML = "0";
+        quantityHTML.classList.remove('show-when-in-stock');
+        addToCartButtonHTML.classList.remove('show-when-in-stock');
+        quantityHTML.classList.add('show-when-out-of-stock');
+        addToCartButtonHTML.classList.add('show-when-out-of-stock');
+        soldOut.classList.remove('show-when-out-of-stock');
+        soldOut.classList.add('show-when-in-stock');
+    }
+
 }
 
 async function addProductToCart() {
