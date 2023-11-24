@@ -4,6 +4,7 @@ import com.example.furnitureweb.model.*;
 import com.example.furnitureweb.model.Enum.EStatusOrder;
 import com.example.furnitureweb.model.dto.orderDTO.OrderRequest;
 import com.example.furnitureweb.model.dto.orderDTO.OrderResponse;
+import com.example.furnitureweb.model.dto.orderDTO.OrderStatusRequest;
 import com.example.furnitureweb.model.dto.productDTO.OrderDetailResponse;
 import com.example.furnitureweb.model.dto.productDTO.ProductDetailRequest;
 import com.example.furnitureweb.model.dto.productDTO.ProductListResponse;
@@ -104,5 +105,19 @@ public class OrderService {
         }
         result.setProducts(orderDetailResponses);
         return result;
+    }
+
+    public void update(Long id, OrderStatusRequest request){
+        Order order = orderRepository.findById(id).get();
+       if(request.getStatus().equals("CONFIRMED")){
+           order.setStatus(EStatusOrder.CONFIRMED);
+        }
+        if(request.getStatus().equals("COMPLETED")){
+            order.setStatus(EStatusOrder.COMPLETED);
+        }
+        if(request.getStatus().equals("CANCELLED")){
+            order.setStatus(EStatusOrder.CANCELLED);
+        }
+       orderRepository.save(order);
     }
 }

@@ -24,6 +24,33 @@ let pageable = {
     search: ''
 }
 
+orderForm.onsubmit = async (e) => {
+    e.preventDefault();
+    let orderId = document.getElementById('orderId').textContent;
+    let status = document.getElementById('status').selectedOptions[0].textContent;
+    const data = {
+        id: orderId,
+        status: status
+    }
+    const response = await fetch('/api/order/' + orderId,{
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    if (response.ok){
+        webToast.Success({
+            status: 'Update order successfully!',
+            message: '',
+            delay: 2000,
+            align: 'topright'
+        });
+        $('#staticModal').modal('hide');
+        getList();
+    }
+}
+
 async function getList() {
     const sortParam = 'id,asc'
     const response = await fetch(`/api/order?page=${pageable.page - 1 || 0}&search=${pageable.search || ''}&sort=${sortParam || ''}`);
@@ -57,6 +84,7 @@ function renderTBody(items) {
         str += renderItemStr(e);
     })
     tBody.innerHTML = str;
+    addClassToLabelStatus();
 }
 
 async function renderTable() {
@@ -88,7 +116,7 @@ function renderItemStr(item) {
                   <td><i class="fab fa-angular fa-lg text-danger"></i><strong>${item.user.fullName}</strong></td>
                   <td>${totalPrice}</td>
                   <td>${formattedDate}</td>
-                  <td><span class="badge bg-label-info me-1">${item.status}</span></td>
+                  <td><span class="" id="label-status">${item.status}</span></td>
                   <td>
                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow" onclick="showOrder(${item.id})">
                         <i class="bx bx-dots-vertical-rounded"></i>
@@ -97,14 +125,54 @@ function renderItemStr(item) {
                 </tr>`
 }
 
+function addClassToLabelStatus() {
+    // Chọn tất cả các phần tử có id là 'label-status'
+    let labelStatusList = document.querySelectorAll('#label-status');
+
+    // Chuyển NodeList thành mảng
+    let labelArray = Array.from(labelStatusList);
+
+    // Lặp qua mảng và gán lớp cho từng phần tử
+    labelArray.forEach(function(item) {
+        let status = item.textContent.trim(); // Sử dụng trim để loại bỏ khoảng trắng xung quanh văn bản
+        removeAllClasses(item);
+
+        // Thêm lớp dựa trên giá trị của status
+        if (status === "CONFIRMED") {
+            item.classList.add('bg-label-info', 'badge', 'me-1');
+        } else if (status === "COMPLETED") {
+            item.classList.add('bg-label-success', 'badge', 'me-1');
+        } else if (status === "CANCELLED") {
+            item.classList.add('bg-label-danger', 'badge', 'me-1');
+        }
+    });
+}
+
+function removeAllClasses(element) {
+    // Kiểm tra xem phần tử có tồn tại không
+    if (element) {
+        // Lấy danh sách các lớp
+        const classList = element.classList;
+
+        // Dùng vòng lặp để xóa từng lớp
+        while (classList.length > 0) {
+            classList.remove(classList.item(0));
+        }
+    }
+}
+
 async function showOrder(id){
     const response = await fetch('/api/order/' + id);
     const data = await response.json();
+    clearModal();
     orderId.textContent = data.id;
     orderDay.textContent = formatDay(data.orderDate);
     customerName.textContent = data.user.fullName;
     customerEmail.textContent = data.user.email;
     customerPhone.textContent = data.user.phoneNumber;
+    status.innerHTML = renderStatusOption(data.status);
+    let address = `${data.address}, ${data.wardName}, <br> ${data.districtName}, ${data.provinceName}`
+    orderAddress.innerHTML = address;
     for (const item of data.products) {
         const str = renderItemInBill(item);
         console.log(str)
@@ -117,6 +185,10 @@ async function showOrder(id){
     subtotal.textContent = formatTotal;
     totalAmount.textContent = formatTotal;
     $('#staticModal').modal('show');
+}
+
+function clearModal(){
+    modalTbody.innerHTML = '';
 }
 
 function renderItemInBill(obj){
@@ -222,6 +294,22 @@ function formatDay(day){
     return formattedDate;
 }
 
+function renderStatusOption(status) {
+    let statusArray = ['CONFIRMED', 'COMPLETED', 'CANCELLED'];
+
+    // Kiểm tra xem status có tồn tại trong mảng không
+    const index = statusArray.indexOf(status);
+
+    // Nếu status tồn tại trong mảng, đưa phần tử đó về đầu mảng
+    if (index !== -1) {
+        // Xóa phần tử tại vị trí index
+        statusArray.splice(index, 1);
+        // Thêm phần tử vào đầu mảng
+        statusArray.unshift(status);
+    }
+    const optionStr = statusArray.map(status => `<option>${status}</option>`).join('\n');
+    return optionStr;
+}
 
 
 window.onload = async () => {

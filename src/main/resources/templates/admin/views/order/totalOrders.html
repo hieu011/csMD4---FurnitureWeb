@@ -29,7 +29,7 @@
     <div class="layout-container">
         <!-- Menu -->
 
-        <th:block th:replace="admin/layout/menu" />
+        <th:block th:replace="admin/layout/menuOrders" />
         <!-- / Menu -->
 
         <!-- Layout container -->
@@ -67,16 +67,18 @@
                                                 <div class="p-3 border bg-white" style="border-radius: 0.5rem">
                                                     <div class="d-flex align-items-center justify-content-between m-3">
                                                         <span>OrderID</span>
-                                                        <strong id="orderId">123</strong>
+                                                        <strong id="orderId"></strong>
                                                     </div>
                                                     <div class="d-flex align-items-center justify-content-between m-3">
                                                         <span>OrderDay</span>
-                                                        <strong id="orderDay">123</strong>
+                                                        <strong id="orderDay"></strong>
                                                     </div>
                                                     <div class="d-flex justify-content-between m-3">
                                                         <span>Status</span>
                                                         <select class="form-select w-25" id="status">
-                                                            <option>Choose</option>
+                                                            <option value="1">CONFIRMED</option>
+                                                            <option value="2">COMPLETED</option>
+                                                            <option value="3">CANCELLED</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -87,19 +89,19 @@
                                                 <div class="p-3 border bg-white" style="border-radius: 0.5rem">
                                                     <div class="d-flex align-items-center justify-content-between m-3">
                                                         <span>Customer Name</span>
-                                                        <strong id="customerName">123</strong>
+                                                        <strong id="customerName"></strong>
                                                     </div>
                                                     <div class="d-flex align-items-center justify-content-between m-3">
                                                         <span>Email</span>
-                                                        <strong id="customerEmail">123</strong>
+                                                        <strong id="customerEmail"></strong>
                                                     </div>
                                                     <div class="d-flex align-items-center justify-content-between m-3">
                                                         <span>Phone Number</span>
-                                                        <strong id="customerPhoneNumber">123</strong>
+                                                        <strong id="customerPhoneNumber"></strong>
                                                     </div>
-                                                    <div class="d-flex align-items-center justify-content-between m-3">
+                                                    <div class="d-flex justify-content-between m-3">
                                                         <span>Address</span>
-                                                        <strong id="orderAddress">123</strong>
+                                                        <strong id="orderAddress"></strong>
                                                     </div>
                                                 </div>
                                             </div>

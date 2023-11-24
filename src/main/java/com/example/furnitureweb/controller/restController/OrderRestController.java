@@ -3,6 +3,7 @@ package com.example.furnitureweb.controller.restController;
 import com.example.furnitureweb.model.Product;
 import com.example.furnitureweb.model.dto.orderDTO.OrderRequest;
 import com.example.furnitureweb.model.dto.orderDTO.OrderResponse;
+import com.example.furnitureweb.model.dto.orderDTO.OrderStatusRequest;
 import com.example.furnitureweb.model.dto.productDTO.ProductListResponse;
 import com.example.furnitureweb.model.dto.productDTO.ProductSaveRequest;
 import com.example.furnitureweb.model.dto.productImageDTO.ProductImageResponse;
@@ -42,4 +43,11 @@ public class OrderRestController {
     public ResponseEntity<OrderResponse> getOrderById(@PathVariable Long id){
         return new ResponseEntity<>(orderService.findById(id),HttpStatus.OK);
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateOrderById(@RequestBody OrderStatusRequest request,@PathVariable Long id){
+        orderService.update(id, request);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

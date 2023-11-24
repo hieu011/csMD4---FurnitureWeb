@@ -213,6 +213,15 @@ function showInfoInModal(product){
 }
 
 async function addProductToCart() {
+    if(!checkUserIsExist()){
+        webToast.Danger({
+            status: `Vui lòng đăng nhập để sử dụng chức năng!`,
+            message: '',
+            delay: 3000,
+            align: 'topcenter'
+        });
+        return;
+    }
     const userId = localStorage.getItem("idUser");
     const item = {
         productId: productName.id,
@@ -296,6 +305,14 @@ function showQuantityOfProductOnCartIcon(){
 
     let userCart = existingData.find(user => user.userId === userId);
     quantityOnCartIcon.innerHTML = userCart.cart.length.toString();
+}
+
+function checkUserIsExist(){
+    let idUser = localStorage.getItem('idUser');
+    if(idUser){
+        return true;
+    }
+    return false;
 }
 
 
