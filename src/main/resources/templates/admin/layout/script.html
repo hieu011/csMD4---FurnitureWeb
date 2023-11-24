@@ -23,4 +23,9 @@
   <!--My JS-->
   <script src="/assets/admin/myjs/base.js"></script>
   <script src="/assets/web-toast/src/webToast.js"></script>
+  <script>
+    let adminName= document.getElementById('adminName');
+    let fullNameUser = localStorage.getItem('fullNameUser');
+    adminName.textContent = fullNameUser;
+  </script>
 </th:block>

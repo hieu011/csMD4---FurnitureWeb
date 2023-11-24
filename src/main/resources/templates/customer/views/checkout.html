@@ -91,7 +91,7 @@
           <div class="form-group row">
             <div class="col-md-12">
               <label for="address" class="text-black">Address <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="address" name="c_address" placeholder="Street address">
+              <input type="text" class="form-control" id="address" placeholder="Street address">
             </div>
           </div>
 
@@ -108,60 +108,29 @@
                 <th>Product</th>
                 <th>Total</th>
                 </thead>
-                <tbody>
-                <tr>
-                  <td>Top Up T-Shirt <strong class="mx-2">x</strong> 1</td>
-                  <td>$250.00</td>
-                </tr>
-                <tr>
-                  <td>Polo Shirt <strong class="mx-2">x</strong>   1</td>
-                  <td>$100.00</td>
-                </tr>
-                <tr>
+                <tbody id="tBody">
+
+
+                <tr style="border-top-width: 2px">
                   <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
-                  <td class="text-black">$350.00</td>
+                  <td class="text-black"><strong id="subtotal" class="text-danger"></strong></td>
                 </tr>
-                <tr>
+                <tr style="border-bottom-width: 2px; border-bottom-color: black">
                   <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-                  <td class="text-black font-weight-bold"><strong>$350.00</strong></td>
+                  <td class="text-black font-weight-bold"><strong id="total" class="text-danger"></strong></td>
                 </tr>
                 </tbody>
               </table>
 
-              <div class="border p-3 mb-3">
-                <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank">Direct Bank Transfer</a></h3>
-
-                <div class="collapse" id="collapsebank">
-                  <div class="py-2">
-                    <p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="border p-3 mb-3">
-                <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsecheque" role="button" aria-expanded="false" aria-controls="collapsecheque">Cheque Payment</a></h3>
-
-                <div class="collapse" id="collapsecheque">
-                  <div class="py-2">
-                    <p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="border p-3 mb-5">
-                <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsepaypal" role="button" aria-expanded="false" aria-controls="collapsepaypal">Paypal</a></h3>
-
-                <div class="collapse" id="collapsepaypal">
-                  <div class="py-2">
-                    <p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-                  </div>
-                </div>
+              <div class="border p-3 mb-3 d-flex justify-content-between">
+                <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank">Cash On Delivery</a></h3>
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-check text-primary" viewBox="0 0 16 16">
+                  <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                </svg>
               </div>
 
               <div class="form-group">
-                <a href="/thank-you">
-                  <button class="btn btn-black btn-lg py-3 btn-block" id="placeOrderButton">Place Order</button>
-                </a>
+                  <button class="btn btn-black btn-lg btn-block" id="placeOrderButton" onclick="submitOrder()">Place Order</button>
               </div>
             </div>
           </div>

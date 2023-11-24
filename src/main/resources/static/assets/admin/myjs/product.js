@@ -333,7 +333,6 @@ async function showEdit(id) {
     $('#staticModalLabel').text('Edit Product');
     clearForm();
     productSelected = await findById(id);
-    console.log(productSelected)
     showImgInForm(productSelected.images);
     for (let i = 0; i < productSelected.images.length; i++) {
 

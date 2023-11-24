@@ -755,5 +755,16 @@ textarea {
   pointer-events: auto !important;
 }
 
+/* Đặt kiểu dáng cho khi có hàng trong kho */
+.show-when-in-stock {
+  display: block !important;
+}
+
+/* Đặt kiểu dáng cho khi hết hàng */
+.show-when-out-of-stock {
+  display: none !important;
+}
+
+
 
 

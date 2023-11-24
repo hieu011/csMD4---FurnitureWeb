@@ -15,9 +15,4 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
             "p.category.name LIKE :search OR " +
             "p.material.name LIKE :search" )
     Page<Product> searchEverything(String search, Pageable pageable);
-
-    @Query(value = "SELECT p FROM Product p " +
-            "WHERE " +
-            "p.id = :id")
-    Product findProductByOrderDetail(Long id);
 }

@@ -60,13 +60,19 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
                         "/home",
                         "/shop",
                         "/about",
-                        "/contact",
+                        "/contact"
+                ).permitAll()
+                .antMatchers(
                         "/cart",
                         "/checkout",
-                        "/thank-you",
+                        "/thank-you"
+                ).hasAnyRole("ADMIN","USER")
+                .antMatchers(
                         "/admin",
-                        "/products"
-                ).permitAll()
+                        "/products",
+                        "/categories",
+                        "/materials"
+                ).hasRole("ADMIN")
                 .antMatchers(
                         "/static/**",
                         "/resources/**",

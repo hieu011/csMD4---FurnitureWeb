@@ -73,4 +73,9 @@ public class HomeController {
     public String showMaterialsDashboardPage(Model model) {
         return "/admin/views/product/materials";
     }
+
+    @GetMapping("/orders")
+    public String showOrdersDashboardPage(Model model) {
+        return "/admin/views/order/totalOrders";
+    }
 }

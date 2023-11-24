@@ -33,7 +33,11 @@ public class UserService implements IUserService {
 
     @Override
     public Optional<User> findById(String id) {
-        return Optional.empty();
+        Optional<User> optionalUser = userRepository.findById(Long.valueOf(id));
+        if(optionalUser.isEmpty()){
+            return null;
+        }
+        return optionalUser;
     }
 
     @Override
