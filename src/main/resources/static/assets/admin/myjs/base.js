@@ -2,10 +2,13 @@ function createInput(props) {
     return `<div class="${props.classContainer || ''}">
                 <label class="${props.classLabel || ''} form-label">${props.label}</label>
                 <input class="input-custom form-control ${props.classInput || ''}" 
+              
                 type="${props.type || 'text'}" name="${props.name}"
                 ${props.pattern ? `pattern="${props.pattern}"` : ""} 
                 value="${props.value || ''}"
                 ${props.required ? `required="${props.required}"` : ''} 
+                ${props.readonly ? " readonly " : ""} 
+                ${props.disabled ? " disabled " : ""}
                 />
                 <span class="error form-text ${props.classError}"></span>
             </div>`

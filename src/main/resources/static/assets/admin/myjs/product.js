@@ -206,12 +206,10 @@ function renderItemStr(item) {
                         <i class="bx bx-dots-vertical-rounded"></i>
                       </button>
                       <div class="dropdown-menu">
-                        <a class="dropdown-item" href="javascript:void(0);" onclick="showEdit(${item.id})"
-                        ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                        >
-                        <a class="dropdown-item" href="javascript:void(0);" onclick="deleteProduct(${item.id})"
-                        ><i class="bx bx-trash me-1"></i> Delete</a
-                        >
+                        <a class="dropdown-item" href="javascript:void(0);" onclick="showEdit(${item.id})">
+                        <i class="bx bx-edit-alt me-1"></i> Edit</a>
+                        <a class="dropdown-item" href="javascript:void(0);" onclick="deleteProduct(${item.id})">
+                        <i class="bx bx-trash me-1"></i> Delete</a>
                       </div>
                     </div>
                   </td>
@@ -281,12 +279,12 @@ function getDataInput() {
 }
 
 async function getListCategories() {
-    const response = await fetch(`/api/categories`);
+    const response = await fetch(`/api/categories/all`);
     return response.json();
 }
 
 async function getListMaterials() {
-    const response = await fetch(`/api/materials`);
+    const response = await fetch(`/api/materials/all`);
     return response.json();
 }
 

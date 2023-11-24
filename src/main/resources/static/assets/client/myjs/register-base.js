@@ -9,7 +9,8 @@ let inputPassword = document.getElementById('password');
 function createInput(props) {
     return `<div class="mb-3">
                 <input class="form-control" 
-                id="${props.name}"
+                id="${props.name}" 
+                ${props.readonly ? " readonly " : "" } 
                 type="${props.type || 'text'}" name="${props.name}"
                 ${props.pattern ? `pattern="${props.pattern}"` : ""} 
                 value="${props.value || ''}"
