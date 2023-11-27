@@ -303,7 +303,9 @@ window.onload = async () => {
         createBindings();
         changeTotalPriceInBill();
     } else {
+        console.log(1)
         alertWhenCartIsEmpty()
+        console.log(2)
     }
 }
 

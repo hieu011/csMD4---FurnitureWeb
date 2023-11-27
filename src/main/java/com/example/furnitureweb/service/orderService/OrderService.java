@@ -76,8 +76,8 @@ public class OrderService {
             var orderDetails = orderDetailRepository.findAllByOrderId(e.getId());
             List<OrderDetailResponse> orderDetailResponses = new ArrayList<>();
             for (int i = 0; i < orderDetails.size(); i++){
-                Product product = productRepository.findById(orderDetails.get(i).getProduct().getId()).get();
-                ProductImage productImage = fileRepository.findProductImageByProduct(product);
+                Product product = orderDetails.get(i).getProduct();
+                ProductImage productImage = fileRepository.findProductImageByProduct(product).get(0);
                 var orderDetail = AppUtils.mapper.map(product,OrderDetailResponse.class);
                 orderDetail.setQuantity(orderDetails.get(i).getQuantity());
                 orderDetail.setFile(productImage.getFileUrl());
@@ -97,7 +97,7 @@ public class OrderService {
         List<OrderDetailResponse> orderDetailResponses = new ArrayList<>();
         for (int i = 0; i < orderDetails.size(); i++){
             Product product = productRepository.findById(orderDetails.get(i).getProduct().getId()).get();
-            ProductImage productImage = fileRepository.findProductImageByProduct(product);
+            ProductImage productImage = fileRepository.findProductImageByProduct(product).get(0);
             var orderDetail = AppUtils.mapper.map(product,OrderDetailResponse.class);
             orderDetail.setQuantity(orderDetails.get(i).getQuantity());
             orderDetail.setFile(productImage.getFileUrl());
